@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head><!-- Clonado por Ads Searcher — origem: https://aventuracomjesus.com/ — 2026-09-09T03:12:39.481Z -->
@@ -25,21 +24,21 @@
   document.head.appendChild(a);
 </script>
 <title>Aventura com Jesus — Oração e Meditação para Crianças</title>
-<meta name="description" content="App de oração e meditação para crianças e famílias. Histórias da Bíblia, meditações e orações guiadas pra colocar seu filho mais perto de Deus. Teste 7 dias grátis.">
+<meta name="description" content="App de oração e meditação para crianças e famílias. Histórias da Bíblia, meditações e orações guiadas pra colocar seu filho mais perto de Deus. Acesso vitalício, pagamento único.">
 <link rel="canonical" href="https://aventuracomjesus.com/">
 <!-- Open Graph / compartilhamento e anúncios -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Aventura com Jesus">
 <meta property="og:title" content="Aventura com Jesus — Oração e Meditação para Crianças">
-<meta property="og:description" content="Histórias da Bíblia, meditações e orações guiadas pra colocar seu filho mais perto de Deus. Teste 7 dias grátis.">
+<meta property="og:description" content="Histórias da Bíblia, meditações e orações guiadas pra colocar seu filho mais perto de Deus. Acesso vitalício, pagamento único.">
 <meta property="og:url" content="https://aventuracomjesus.com/">
 <meta property="og:image" content="https://aventuracomjesus.com/img/APP_ICON.jpeg">
 <meta property="og:image:width" content="https://aventuracomjesus.com/1254">
 <meta property="og:image:height" content="https://aventuracomjesus.com/1254">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Aventura com Jesus — Oração e Meditação para Crianças">
-<meta name="twitter:description" content="Histórias da Bíblia, meditações e orações guiadas. Teste 7 dias grátis.">
+<meta name="twitter:description" content="Histórias da Bíblia, meditações e orações guiadas. Acesso vitalício, pagamento único.">
 <meta name="twitter:image" content="https://aventuracomjesus.com/img/APP_ICON.jpeg">
 <!-- preload do que aparece na 1a tela (abre rápido no 4G) -->
 <link rel="preload" as="image" href="https://aventuracomjesus.com/img/BG_GRADIENT_blue.avif" fetchpriority="high">
@@ -848,7 +847,7 @@
     <a href="reembolso.html/index.html">Política de Reembolso</a>
     <span aria-hidden="true">·</span>
     <a href="precos.html/index.html">Preços</a>
-    <div class="legal-foot-2">© 2026 DG Tech · <a href="mailto:suporte@aventuracomjesus.com">suporte@aventuracomjesus.com</a> · Pagamento por <a href="https://hotmart.com/" rel="noopener" target="_blank">Hotmart</a> ou <a href="https://stripe.com/" rel="noopener" target="_blank">Stripe</a></div>
+    <div class="legal-foot-2">© 2026 DG Tech · <a href="mailto:suporte@aventuracomjesus.com">suporte@aventuracomjesus.com</a> · Pagamento processado com segurança pela BravoPay</div>
   </nav>
 </div>
 
@@ -956,19 +955,18 @@ function mountLotties(){
 //   Roda SOZINHO: o braço de pitch travado da VSL foi ENCERRADO em 26/08 (0 venda em 327 sessões).
 //   Sorteio 50/50 por dispositivo (localStorage acj_ticket). ?tv=a|b força (QA); ?tv=reset limpa.
 //   ⚠️ Este bloco PRECISA nascer antes do STEPS: os textos de preço leem TK na hora do parse.
+// ⚠️ 10/09/2026: funil migrado de assinatura (trial 7d + mensal/anual) para PAGAMENTO
+// ÚNICO — acesso vitalício por R$ 37,90, garantia de reembolso de 7 dias. Os dois braços
+// (A/B) do teste de vídeo/VSL continuam existindo (campo `vsl`), mas o PREÇO agora é o
+// mesmo dos dois lados — não há mais teste de ticket em andamento.
 var TICKETS = {
-  // ⚠️ 29/08: o braço A deixou de ser o R$ 29,90 (cortado por aritmética em 26/08) e virou o
-  // DESAFIANTE de R$ 49,90 contra o R$ 59,90 que está no ar. VSL PRÓPRIA: o vídeo cita o
-  // preço, então cada braço precisa do seu — rodar o vídeo do 59,90 num paywall de 49,90
-  // seria a mãe ouvir um número e ver outro, que é o jeito mais rápido de perder a venda.
-  // Âncora do anual = a referência que a VSL cita: 10 meses a 49,90 = R$ 499.
-  A:{ priceId:'price_1U9nGG8THaIasPbz2t6V0Ndi', cents:4990,
-      mes:'R$ 49,90', dia:'R$ 1,66', velho:'R$ 99,90',
-      anualCents:49900,
-      subDia:'menos de R$ 2 por dia', vsl:'6a92e849c28da4509e42fc5b' },
-  B:{ priceId:'price_1U8OT18THaIasPbzbK0zOj8g', cents:5990,
-      mes:'R$ 59,90', dia:'R$ 1,97', velho:'R$ 119,90', anualCents:59900,
-      subDia:'menos de R$ 2 por dia', vsl:'6a8dd613288cd993d34698e9' },
+  A:{ priceId:'BRAVOPAY_CHECKOUT_URL_PENDENTE', cents:3790,
+      mes:'R$ 37,90', dia:'R$ 37,90', velho:'R$ 67,90',
+      anualCents:3790,
+      subDia:'pagamento único', vsl:'6a92e849c28da4509e42fc5b' },
+  B:{ priceId:'BRAVOPAY_CHECKOUT_URL_PENDENTE', cents:3790,
+      mes:'R$ 37,90', dia:'R$ 37,90', velho:'R$ 67,90', anualCents:3790,
+      subDia:'pagamento único', vsl:'6a8dd613288cd993d34698e9' },
 };
 var TK = TICKETS.A;
 (function(){
@@ -1005,7 +1003,7 @@ const REVIEWS = [
 const FAQS = [
   ['Por que eu preciso do app Aventura com Jesus?','O Aventura com Jesus é mais do que uma ferramenta para a hora de dormir — é uma forma significativa de nutrir o crescimento espiritual e o bem-estar emocional do seu filho. Feito para ajudar famílias a praticarem a fé juntas, o app guia seu filho por orações noturnas, histórias da Bíblia e reflexões baseadas na fé. Ele ajuda seu filho a dormir mais rápido, reduz a ansiedade e aprofunda o entendimento da fé.'],
   ['Como faço para acessar o app?','Comece seu teste grátis no nosso site e enviaremos um link para baixar o Aventura com Jesus. Faça login com suas credenciais para aproveitar os recursos premium.'],
-  ['Como cancelo minha assinatura?','É só chamar no nosso <a href="mailto:contato@aventuracomjesus.com?body=Ol%C3%A1!%20Quero%20cancelar%20minha%20assinatura%20da%20Aventura%20com%20Jesus.%20Meu%20e-mail%20da%20compra%20%C3%A9%3A%20" target="_blank" rel="noopener">e-mail de suporte</a> que cancelamos pra você, sem burocracia. Você pode cancelar quando quiser, antes do fim do teste grátis, e não é cobrado nada.'],
+  ['E se eu não gostar?','O pagamento é único — sem mensalidade, sem renovação automática. Se não gostar por qualquer motivo, é só chamar no nosso <a href="mailto:contato@aventuracomjesus.com?body=Ol%C3%A1!%20Quero%20o%20reembolso%20da%20minha%20compra%20do%20Aventura%20com%20Jesus.%20Meu%20e-mail%20da%20compra%20%C3%A9%3A%20" target="_blank" rel="noopener">e-mail de suporte</a> em até 7 dias da compra que devolvemos seu dinheiro, sem burocracia.'],
 ];
 
 /* TESTE A/B de FLUXO — 27/08/2026. O único teste que muda a LISTA DE ETAPAS, não o conteúdo
@@ -1210,29 +1208,29 @@ const STEPS_A = [
     imgs:['CC_MED','CC_PRAY','CC_BIBLE','CC_STORIES','CC_SLEEP','CC_VERSE'],
     lines:['Estamos personalizando o caminho do seu filho','Rumo a uma Caminhada Mais Próxima de Deus'],
     bars:['Perfil','Objetivos','Afirmações, Orações e Meditação','Plano de teste grátis'] },
-  // 26 — oferta de dias grátis (EN: "Oferecemos X dias grátis...")
+  // 26 — oferta de acesso vitalício (era "7 dias grátis"; agora pagamento único)
   { key:'offer30DaysScreen', type:'offer', warm:true,
-    title:'Oferecemos <span class="hl-gold">7 dias grátis</span><br>para que todos possam ter filhos mais próximos de Deus e crescer com o Aventura com Jesus.',
+    title:'Liberamos o <span class="hl-gold">acesso vitalício por '+TK.mes+'</span><br>para que todas as famílias possam ter filhos mais próximos de Deus com o Aventura com Jesus.',
     btn:'Continuar' },
-  // 27 — lembrete de trial (EN: "Você vai receber um lembrete 2 dias antes...")
+  // 27 — "pague uma vez, acesso pra sempre" (era o lembrete de trial)
   { key:'trialReminderScreen', type:'reminder', warm:true,
-    title:'Você vai receber um <span class="hl-gold">lembrete 2 dias</span> antes do fim do seu teste.',
+    title:'Você paga <span class="hl-gold">uma única vez</span> e o acesso é seu <span class="hl-gold">para sempre</span> — sem mensalidade.',
     btn:'Continuar' },
   // 28 — recap de preço + avaliação + reviews + FAQ (EN faqAndReviews)
   { key:'faqAndReviewsScreen', type:'faqrev',
-    offerTitle:'7 Dias Grátis — Aventura com Jesus',
-    offerSub:'depois '+TK.mes+'/mês · '+TK.subDia,
-    priceDetail:'( R$ 0,00 hoje · avisamos 2 dias antes de qualquer cobrança · cancele em 1 toque e não paga nada )',
+    offerTitle:'Acesso Vitalício — Aventura com Jesus',
+    offerSub:'pagamento único · acesso para sempre',
+    priceDetail:'( pagamento único · acesso para sempre · 7 dias de garantia de reembolso )',
     ratingTitle:'AVALIAÇÃO 4,8 ESTRELAS',
-    noPay:'R$ 0,00 hoje — nada é cobrado agora',
+    noPay:'Pagamento único de '+TK.mes+' — sem mensalidade',
     reviews:REVIEWS, faqs:FAQS,
     faqTitle:'Estamos prontos para responder suas perguntas',
     btn:'Continuar' },
-  // 29 — paywall (carrossel + seletor de teste + perks + FAQ + reviews)
+  // 29 — paywall (carrossel + oferta vitalícia + perks + FAQ + reviews)
   { key:'paywallScreen', type:'paywall',
-    title:'Monte seu teste',
+    title:'Escolha seu plano',
     sub:'Medite com Deus com mais de 500 orações guiadas, histórias para dormir e muito mais!',
-    yearPrice:'R$ 299,00', dayPrice:'R$ 0,82', monthPrice:TK.mes, monthPriceOld:TK.velho,
+    yearPrice:TK.mes, dayPrice:TK.dia, monthPrice:TK.mes, monthPriceOld:TK.velho,
     perks:[
       ['Adicione fé à rotina de sono','do seu filho e faça-o dormir em menos de 9 minutos.','lua'],
       ['Histórias da Bíblia','da criação à vida de Jesus, inspirando fé e conexão.','livro'],
@@ -1242,11 +1240,11 @@ const STEPS_A = [
     reviewsTitle:'Confiado por mais de 150 mil famílias',
     reviewsSub:'Pais e filhos no mundo todo rezando juntos todos os dias',
     faqs:FAQS, reviews:REVIEWS,
-    btn:'Resgatar 7 dias por R$ 0,00' },
+    btn:'Garantir acesso vitalício por '+TK.mes },
   // 30 — checkout
   { key:'checkoutScreen', type:'checkout',
-    title:'Comece Sua Jornada Hoje',
-    dayPrice:'R$ 0,82', yearPrice:'R$ 299,00', monthPrice:TK.mes,
+    title:'Garanta seu Acesso Vitalício',
+    dayPrice:TK.dia, yearPrice:TK.mes, monthPrice:TK.mes,
     btn:'Continuar com Segurança' },
   // 31
   { key:'confirmEmailScreen', type:'email',
@@ -2781,9 +2779,9 @@ function garantiaBlock(){
   // propósito: "não gostei da voz" é inofensivo e mostra que a porta é larga, enquanto
   // "não funcionou" convida a pessoa a imaginar o fracasso.
   return `<div class="gar">
-    <img class="gar-selo" src="https://aventuracomjesus.com/img/SELO_GARANTIA_60.webp" alt="Garantia de reembolso de 60 dias" width="460" height="460" loading="lazy" decoding="async">
-    <h3>Garantia de reembolso de 60 dias</h3>
-    <p>Comece hoje, uma história por noite, e em poucas semanas veja seu filho <b>pedindo pra orar sozinho</b>.<br><br>E se não gostar da cor do aplicativo, da voz do narrador ou de qualquer bobagem — é só pedir. <b>Devolvemos em até 60 dias.</b></p>
+    <img class="gar-selo" src="https://aventuracomjesus.com/img/SELO_GARANTIA_60.webp" alt="Garantia de reembolso de 7 dias" width="460" height="460" loading="lazy" decoding="async">
+    <h3>Garantia de reembolso de 7 dias</h3>
+    <p>Comece hoje, uma história por noite, e em poucas semanas veja seu filho <b>pedindo pra orar sozinho</b>.<br><br>E se não gostar da cor do aplicativo, da voz do narrador ou de qualquer bobagem — é só pedir. <b>Devolvemos em até 7 dias.</b></p>
     <a class="gar-pol" href="/reembolso.html" target="_blank" rel="noopener">Saiba mais sobre as limitações aplicáveis na nossa política de reembolso.</a>
   </div>`.replace(/veja seu filho <b>pedindo pra orar sozinho<\/b>/,
         (typeof generifica==='function' ? generifica('veja seu filho') : 'veja seu filho')
@@ -2857,29 +2855,17 @@ function trialBlock(s){
      o sel:true de volta pro plano 'year'. O anual segue destacado (faixa MAIS ESCOLHIDO,
      selo de meses grátis, R$ 0,82/dia) — quem quiser, escolhe. */
   return `<div class="trial">
-    ${linha({ plan:'trial', priceId:PRICE_TRIAL, sel:true, selo:'',
-      nome:'Plano de 1 mês',
-      de:TK.velho, por:TK.mes, diaDe:_dd(parseInt(TK.velho.replace(/\D/g,''),10),30), diaPor:_dd(TK.cents,30),
+    ${linha({ plan:'trial', priceId:PRICE_TRIAL, sel:true, selo:'ACESSO VITALÍCIO',
+      nome:'Acesso Vitalício',
+      de:TK.velho, por:TK.mes, diaDe:'', diaPor:'',
       sub:'',
-      cta:'Resgatar 7 dias por R$ 0,00',
-      note:`7 dias 100% grátis · depois ${s.monthPrice}/mês · avisamos antes de cobrar, cancele e não paga nada.` })}
-    ${linha({ plan:'year', priceId:PRICE_YEAR, sel:false, selo:'MAIS ESCOLHIDO',
-      /* MESES GRÁTIS = 12 − (quantas mensalidades o anual custa). Pagando R$ 299 ela paga o
-         equivalente a ~5 meses (299/59,90) e leva 12 → 7 grátis. Antes dividia a ECONOMIA
-         pela mensalidade ((599−299)/59,90 = 5), que ancora no preço "de" — número inventado
-         e mais fraco que o verdadeiro. No braço de R$ 49,90 dá 6. */
-      nome:'Plano de 12 meses', tag:_selo,
-      de:_dia(TK.anualCents), por:_dia(ANUAL_CENTS),
-      diaDe:_dd(TK.anualCents,365), diaPor:_dd(ANUAL_CENTS,365),
-      sub:'',
-      cta:'Resgatar 7 dias por R$ 0,00',
-      note:`7 dias 100% grátis · depois ${s.yearPrice} uma vez por ano · equivale a R$ 24,92/mês.` })}
-    <div class="toggle-row"><span>Lembrar antes do fim do teste</span><span class="switch on"></span></div>
+      cta:`Garantir acesso vitalício por ${TK.mes}`,
+      note:`Pagamento único de ${s.monthPrice} · acesso vitalício · sem mensalidade e sem renovação.` })}
   </div>
   <button class="pw-cta pulse">${s.btn}</button>
-  <p class="pw-price">7 dias 100% grátis · depois <b class="pr-verde">${s.monthPrice}</b>/mês · avisamos antes de cobrar, cancele e não paga nada.</p>
-  <p class="pw-cancel">🔒 R$ 0,00 hoje · cancele em 1 toque antes do 7º dia</p>
-  <p class="pw-terms">Ao continuar você concorda com os <a href="/termos.html" target="_blank">Termos de Uso</a>, <a href="/privacidade.html" target="_blank">Política de Privacidade</a> e <a href="/reembolso.html" target="_blank">Política de Reembolso</a>.<br>Pagamento processado com segurança pela <a href="https://hotmart.com" target="_blank" rel="noopener">Hotmart</a> ou <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a>.</p>`;
+  <p class="pw-price">Pagamento único de <b class="pr-verde">${s.monthPrice}</b> · acesso vitalício · sem mensalidade e sem renovação.</p>
+  <p class="pw-cancel">🔒 Compra segura · garantia de 7 dias</p>
+  <p class="pw-terms">Ao continuar você concorda com os <a href="/termos.html" target="_blank">Termos de Uso</a>, <a href="/privacidade.html" target="_blank">Política de Privacidade</a> e <a href="/reembolso.html" target="_blank">Política de Reembolso</a>.<br>Pagamento processado com segurança pela BravoPay.</p>`;
 }
 function wireTrials(){
   // aplica um plano em TODOS os blocos do paywall (topo e rodapé): marca a linha,
@@ -3913,7 +3899,10 @@ window.CHECKOUT_TESTE = false;
 })();
 // ponto ÚNICO de decisão: quem pergunta "vai pra Hotmart?" pergunta aqui, nunca pra flag
 // crua — senão metade do código respeitaria o sorteio e a outra metade não.
-window.vaiPraHotmart = function(){ return !!window.CHECKOUT_HOTMART && window._acjCk === 'B'; };
+// 10/09/2026: funil migrado pra pagamento único via BravoPay. Reaproveita o mecanismo de
+// redirect externo que já existia pro Hotmart (captura de lead + UTM antes de sair, etc.),
+// só que agora sempre manda pra BravoPay em vez de rodar o sorteio A/B do checkout antigo.
+window.vaiPraHotmart = function(){ return true; };
 /* QA da virada: ?hot=1 liga a Hotmart SO PRA ESSA VISITA, com a flag global desligada.
    Testa a pagina real com as APIs reais sem expor nenhum cliente. Combina com ?qa=1
    (nao conta nas metricas do funil). Quando a flag global virar true, isto vira inocuo. */
@@ -3925,33 +3914,20 @@ try{ if(new URLSearchParams(location.search).get('hot')==='1') window.CHECKOUT_H
    Formato: https://pay.hotmart.com/W107280919T?off=xxxxxxxx
    Usar `pay.` e nao `go.`: o `go` joga a pessoa numa 2a pagina de vendas antes do
    checkout, e ela ja viu a nossa. */
+// ⚠️ PENDENTE: troque as duas linhas abaixo pelo link real de checkout da BravoPay assim
+// que ele existir (mensal e anual apontam pro MESMO link agora, é plano único). Enquanto
+// ficar em '#bravopay-pendente', o clique em "comprar" não sai do site — não tenta cobrar
+// ninguém, só não completa a compra de verdade ainda.
 window.HOTMART_OFERTAS = {
-  mensal: 'https://pay.hotmart.com/W107280919T?off=s02tk39x',   // plano "Mensal 59,90", trial 7d (criado 28/08)
-  anual:  'https://pay.hotmart.com/W107280919T?off=2rvxw0a5',   // plano "Anual 299", trial 7d (recriado 29/08 — o velho blkbxvjo foi removido pra promover o Mensal 59,90 a preco base)
-  /* Os codigos dos backs sao as OFERTAS COM CUPOM que a Hotmart gerou (plano + VOLTA50
-     ja aplicado, 50% APENAS na 1a recorrencia): o checkout abre com o desconto pronto,
-     sem cupom na URL. O VOLTA50 so vale nos planos de back — digitado no checkout do
-     front, da "cupom invalido" de proposito (senao site de cupom viraria desconto
-     universal). Copy dos modais confere: 29,95 no 1o mes, e o back 2 soma os 30 dias. */
-  /* ⚠️ O cupom entra pela URL com `offDiscount=` (o `coupon=` que o painel da Hotmart gera
-     NAO aplica — testado em 29/08). E o cupom precisa de "Permitir periodo de testes"
-     LIGADO no cadastro, senao o link com desconto MATA o trial e cobra na hora. Validado
-     no checkout: trial + "Cupom VOLTA50 aplicado" + 29,95 na 1a mensalidade, juntos. */
-  back1:  'https://pay.hotmart.com/W107280919T?off=aabjx8uv&offDiscount=VOLTA50',   // "Back 1 59,90": trial 7d + 29,95 na 1a
-  back2:  'https://pay.hotmart.com/W107280919T?off=861cr8mv&offDiscount=VOLTA50',   // "Back 2 59,90 (30d teste)": trial 30d + 29,95 na 1a
-  /* teste de ticket: o braco A do sorteio (49,90) vai pro seu proprio plano — decisao do
-     Gabriel em 29/08 ("cria checkout de 49 e o Claude direciona cada braco pro seu link").
-     Com este link preenchido, o A/B roda INTEIRO na Hotmart e a virada deixa de contaminar
-     o teste. Os backs do braco A seguem na STRIPE (as ofertas de back da Hotmart sao
-     ancoradas no 59,90 — recorrencia errada pra quem viu 49,90). */
-  mensal49: 'https://pay.hotmart.com/W107280919T?off=uovl69i5',   // plano "Mensal 49,90", trial 7d
+  mensal: '#bravopay-pendente',
+  anual:  '#bravopay-pendente',
+  back1:  '#bravopay-pendente',
+  back2:  '#bravopay-pendente',
+  mensal49: '#bravopay-pendente',
 };
 
-/* Compatibilidade: se so estes estiverem preenchidos, continuam valendo. O
-   HOTMART_PAY_URL abaixo aponta pra oferta PADRAO (R$ 29,90) e por isso esta
-   comentado — ligar a flag com ele ativo venderia pela metade do preco. */
-window.HOTMART_PAY_URL      = '';   // 'https://pay.hotmart.com/W107280919T' = R$ 29,90, DESATUALIZADO
-window.HOTMART_PAY_URL_YEAR = '';
+window.HOTMART_PAY_URL      = '#bravopay-pendente';
+window.HOTMART_PAY_URL_YEAR = '#bravopay-pendente';
 let _stripe, _elements, _ckMode = null;
 
 // captura o LEAD assim que a mãe digita o e-mail no quiz (pra sequência de "não comprou")
@@ -4152,4 +4128,3 @@ async function confirmStripe(btn){
 </script>
 </body>
 </html>
-
