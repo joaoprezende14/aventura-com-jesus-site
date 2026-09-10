@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head><!-- Clonado por Ads Searcher — origem: https://aventuracomjesus.com/ — 2026-09-09T03:12:39.481Z -->
@@ -3915,20 +3916,20 @@ try{ if(new URLSearchParams(location.search).get('hot')==='1') window.CHECKOUT_H
    Formato: https://pay.hotmart.com/W107280919T?off=xxxxxxxx
    Usar `pay.` e nao `go.`: o `go` joga a pessoa numa 2a pagina de vendas antes do
    checkout, e ela ja viu a nossa. */
-// ⚠️ PENDENTE: troque as duas linhas abaixo pelo link real de checkout da BravoPay assim
-// que ele existir (mensal e anual apontam pro MESMO link agora, é plano único). Enquanto
-// ficar em '#bravopay-pendente', o clique em "comprar" não sai do site — não tenta cobrar
-// ninguém, só não completa a compra de verdade ainda.
+// 10/09/2026: link real da BravoPay ligado — oferta "Acesso Vitalício R$37,90" (checkout
+// automático, PIX). Plano único, então mensal/anual/mensal49 apontam todos pro mesmo link.
+// back1/back2 seguem preenchidos por segurança, mas são inofensivos: o downsell de saída
+// que os usava foi desativado em disparaBack().
 window.HOTMART_OFERTAS = {
-  mensal: '#bravopay-pendente',
-  anual:  '#bravopay-pendente',
-  back1:  '#bravopay-pendente',
-  back2:  '#bravopay-pendente',
-  mensal49: '#bravopay-pendente',
+  mensal: 'https://pagseguropix.org/c/vitalicio',
+  anual:  'https://pagseguropix.org/c/vitalicio',
+  back1:  'https://pagseguropix.org/c/vitalicio',
+  back2:  'https://pagseguropix.org/c/vitalicio',
+  mensal49: 'https://pagseguropix.org/c/vitalicio',
 };
 
-window.HOTMART_PAY_URL      = '#bravopay-pendente';
-window.HOTMART_PAY_URL_YEAR = '#bravopay-pendente';
+window.HOTMART_PAY_URL      = 'https://pagseguropix.org/c/vitalicio';
+window.HOTMART_PAY_URL_YEAR = 'https://pagseguropix.org/c/vitalicio';
 let _stripe, _elements, _ckMode = null;
 
 // captura o LEAD assim que a mãe digita o e-mail no quiz (pra sequência de "não comprou")
