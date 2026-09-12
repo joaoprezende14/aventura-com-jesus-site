@@ -13,6 +13,36 @@ t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','3610184232497321');
 fbq('track','PageView');
+/* TRAVA DE PIXEL — nao remover.
+   Motivo: o script da UTMify inicializa um pixel da Meta que vem da config
+   dela (ja apareceu aqui o pixel ANTIGO do clone, 1030252979745834) e ainda
+   redispara PageView/ViewContent no navegador. Isso (a) alimentava pixel de
+   terceiro e (b) duplicava evento. Esta trava garante que nesta pagina:
+     - so o NOSSO pixel existe;
+     - so PageView e Lead saem pelo navegador, uma vez cada.
+   ViewContent / InitiateCheckout / Purchase sao responsabilidade EXCLUSIVA da
+   CAPI da BravoPay (server-side). */
+(function(){
+  var ALLOW_PIXEL = '3610184232497321';
+  var ALLOW_EVENT = { PageView: 1, Lead: 1 };
+  var jaEnviado = { PageView: 1 };   // o PageView acima ja foi
+  var real = window.fbq;
+  if (!real || typeof Proxy === 'undefined') return;
+  var wrapped = new Proxy(real, {
+    apply: function (target, thisArg, args) {
+      var cmd = args[0];
+      if (cmd === 'init' && String(args[1]) !== ALLOW_PIXEL) return;
+      if (cmd === 'track' || cmd === 'trackCustom') {
+        var ev = String(args[1]);
+        if (!ALLOW_EVENT[ev] || jaEnviado[ev]) return;
+        jaEnviado[ev] = 1;
+      }
+      if (cmd === 'trackSingle' || cmd === 'trackSingleCustom') return;
+      return target.apply(thisArg, args);
+    }
+  });
+  window.fbq = window._fbq = wrapped;
+})();
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
  src="https://www.facebook.com/tr?id=3610184232497321&ev=PageView&noscript=1"></noscript>
