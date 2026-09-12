@@ -2,8 +2,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head><!-- Clonado por Ads Searcher — origem: https://aventuracomjesus.com/ — 2026-09-09T03:12:39.481Z -->
-<!-- Meta Pixel e NewsBreak removidos: a operacao usa somente a UTMify. Stub abaixo evita erro em chamadas fbq() que sobraram no codigo da pagina. -->
-<script>window.fbq=window.fbq||function(){};</script>
+<!-- Meta Pixel (PageView). NewsBreak e o pixel antigo do clone foram removidos.
+     ViewContent / InitiateCheckout / Purchase NAO saem daqui: quem envia e a
+     BravoPay via CAPI (server-side), pra nao duplicar evento. -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','3610184232497321');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+ src="https://www.facebook.com/tr?id=3610184232497321&ev=PageView&noscript=1"></noscript>
 <link rel="preconnect" href="https://cdn.utmify.com.br" crossorigin>
 <!-- UTMify: rastreio de UTMs (mantem utm_source/medium/campaign ate o checkout) -->
 <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
@@ -4026,7 +4038,7 @@ async function mountStripeElements(priceId){
     window._ckSi  = data.setupIntentId  || '';
     window._ckSub = data.subscriptionId || '';
     // InitiateCheckout (browser) — chegou no checkout. Mesmo event_id do CAPI (= setupIntentId) -> Facebook dedup.
-    try{ if(typeof window.fbq==='function'){ window.__fbFired=window.__fbFired||{}; if(!window.__fbFired.ic){ window.__fbFired.ic=true; const _pl=(answers&&answers._planCode)||'trial'; window.fbq('track','InitiateCheckout',{value:_pl==='year'?299:(TK.cents/100),currency:'BRL'},{eventID:(window._ckEvtId||undefined)}); } } }catch(_){}
+    try{ if(typeof window.fbq==='function'){ window.__fbFired=window.__fbFired||{}; if(!window.__fbFired.ic){ window.__fbFired.ic=true; const _pl=(answers&&answers._planCode)||'trial'; void 0; } } }catch(_){}
     // NewsBreak: chegou no cartao
     try{ if(typeof window.nbpix==='function'){ window.__nbFired=window.__nbFired||{}; if(!window.__nbFired.ic){ window.__nbFired.ic=true; const _p2=(answers&&answers._planCode)||'trial'; window.nbpix('event','initiate_checkout',{nb_value:_p2==='year'?299:(TK.cents/100)}); } } }catch(_){}
     // (StartTrial NÃO dispara ao abrir o checkout — nada é criado aqui. Dispara só no cartão confirmado, em confirmStripe.)
@@ -4092,7 +4104,7 @@ async function confirmStripe(btn){
   if(!_elements){ if(errEl){ errEl.style.display='block'; errEl.textContent='Checkout não está pronto.'; } return; }
   btn.disabled = true; btn.innerHTML = '⏳ Processando…';
   // Pixel FB: AddPaymentInfo (enviou o cartão) — 1x por sessão, mesmo pixel da UTMify
-  try{ if(typeof window.fbq==='function'){ window.__fbFired=window.__fbFired||{}; if(!window.__fbFired.api){ window.__fbFired.api=true; window.fbq('track','AddPaymentInfo'); } } }catch(_){}
+  try{ if(typeof window.fbq==='function'){ window.__fbFired=window.__fbFired||{}; if(!window.__fbFired.api){ window.__fbFired.api=true; void 0; } } }catch(_){}
   // NewsBreak: enviou o cartao
   try{ if(typeof window.nbpix==='function'){ window.__nbFired=window.__nbFired||{}; if(!window.__nbFired.api){ window.__nbFired.api=true; const _p4=(typeof answers!=='undefined'&&answers._planCode)||'trial'; window.nbpix('event','add_payment_info',{nb_value:_p4==='year'?299:(TK.cents/100)}); } } }catch(_){}
   const successUrl = location.origin + '/?sucesso=1';
@@ -4106,7 +4118,7 @@ async function confirmStripe(btn){
   // Pixel FB (conversão dia 0): TRIAL -> StartTrial = sinal RÁPIDO pra otimização (otimize os anúncios NESTE evento).
   // ANUAL não dispara nada aqui. A UTMify já reporta Purchase = dinheiro real (dia 8 no trial / dia 0 no anual), server-side.
   // NÃO disparamos Purchase no browser p/ não DOBRAR com o da UTMify.
-  try{ if(typeof window.fbq==='function'){ window.__fbFired=window.__fbFired||{}; const _pl=(typeof answers!=='undefined'&&answers._planCode)||'trial'; if(!window.__fbFired.trial){ window.__fbFired.trial=true; window.fbq('track','StartTrial',{value:(_pl==='year'?299:(TK.cents/100)),currency:'BRL'},{eventID:(window._ckEvtId||undefined)}); } } }catch(_){}
+  try{ if(typeof window.fbq==='function'){ window.__fbFired=window.__fbFired||{}; const _pl=(typeof answers!=='undefined'&&answers._planCode)||'trial'; if(!window.__fbFired.trial){ window.__fbFired.trial=true; void 0; } } }catch(_){}
   // NewsBreak: cartao confirmado = conversao (vale p/ trial E anual)
   try{ if(typeof window.nbpix==='function'){ window.__nbFired=window.__nbFired||{}; if(!window.__nbFired.conv){ window.__nbFired.conv=true; const _p3=(typeof answers!=='undefined'&&answers._planCode)||'trial'; window.nbpix('event','complete_payment',{nb_value:_p3==='year'?299:(TK.cents/100)}); } } }catch(_){}
   const ci = STEPS.findIndex(s=>s.key==='completeScreen');
