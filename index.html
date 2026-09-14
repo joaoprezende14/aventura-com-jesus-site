@@ -2,6 +2,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head><!-- Clonado por Ads Searcher — origem: https://aventuracomjesus.com/ — 2026-09-09T03:12:39.481Z -->
+<meta charset="UTF-8">
+<!-- FIX 14/09/2026: viewport nunca existiu neste arquivo. Sem ele, o navegador (sobretudo o
+     in-app do Instagram/Facebook) assume um viewport de desktop (~980px) e escala a pagina
+     inteira pra caber na tela — e o efeito de "coluna estreita com fundo cinza nas laterais"
+     visto ao abrir o funil pelo celular dentro do Instagram. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- Meta Pixel (PageView). NewsBreak e o pixel antigo do clone foram removidos.
      ViewContent / InitiateCheckout / Purchase NAO saem daqui: quem envia e a
      BravoPay via CAPI (server-side), pra nao duplicar evento. -->
@@ -19,12 +25,18 @@ fbq('track','PageView');
    redispara PageView/ViewContent no navegador. Isso (a) alimentava pixel de
    terceiro e (b) duplicava evento. Esta trava garante que nesta pagina:
      - so o NOSSO pixel existe;
-     - so PageView e Lead saem pelo navegador, uma vez cada.
-   ViewContent / InitiateCheckout / Purchase sao responsabilidade EXCLUSIVA da
-   CAPI da BravoPay (server-side). */
+     - so PageView, Lead e InitiateCheckout saem pelo navegador, uma vez cada.
+   FIX 14/09/2026: o InitiateCheckout nao saia nem daqui (bloqueado por esta
+   trava) nem da CAPI da BravoPay (nunca implementado do lado deles) — a soma
+   dos dois dava ZERO sinal pro Meta (funil de conversao com IC sempre 0%).
+   Reativado client-side, com eventID pra deduplicar se um dia a CAPI da
+   BravoPay tambem passar a mandar esse evento.
+   ViewContent / Purchase continuam responsabilidade EXCLUSIVA da CAPI da
+   BravoPay (server-side) — Purchase so deve ser confirmado com o pagamento
+   aprovado, nao no clique do botao. */
 (function(){
   var ALLOW_PIXEL = '3610184232497321';
-  var ALLOW_EVENT = { PageView: 1, Lead: 1 };
+  var ALLOW_EVENT = { PageView: 1, Lead: 1, InitiateCheckout: 1 };
   var jaEnviado = { PageView: 1 };   // o PageView acima ja foi
   var real = window.fbq;
   if (!real || typeof Proxy === 'undefined') return;
@@ -2945,6 +2957,26 @@ function wireTrials(){
     //   Stripe  -> 28 (tela de cartão) -> 31 (completo)
     //   Hotmart -> 74 (saiu do site)   -> venda só volta pelo Railway
     try{ trackStep(73); }catch(_){}
+    /* FIX 14/09/2026: InitiateCheckout pelo navegador, disparado bem aqui — no clique do
+       botao de comprar, que e o UNICO ponto por onde os dois caminhos passam (redirect
+       externo pra BravoPay, onde nosso pixel nao existe; ou checkout interno via Stripe).
+       Sem isto o Meta nunca recebia esse evento por NENHUMA via (nem client-side, bloqueado
+       de proposito, nem server-side, nunca implementado do lado da BravoPay) — funil de
+       conversao ficava com IC preso em 0% mesmo com venda acontecendo.
+       eventID fica pronto pra deduplicar se um dia a CAPI da BravoPay tambem passar a
+       mandar o mesmo evento (ver window._ckEvtId em mountStripeElements). */
+    try{
+      if(typeof window.fbq==='function'){
+        window.__fbFired = window.__fbFired || {};
+        if(!window.__fbFired.ic){
+          window.__fbFired.ic = true;
+          var _icVal = (answers._planCode === 'year') ? 299 : (TK.cents/100);
+          var _icId = (window.crypto&&crypto.randomUUID)?crypto.randomUUID():(String(Date.now())+Math.random());
+          window._ckEvtId = window._ckEvtId || _icId;
+          window.fbq('track','InitiateCheckout',{value:_icVal,currency:'BRL'},{eventID:_icId});
+        }
+      }
+    }catch(_){}
     /* 79 = apertou comprar NO ANUAL. O 73 conta todo mundo que aperta, sem distinguir plano —
        então até 04/09 ninguém sabia quantas mães ESCOLHEM o anual e não fecham (só dava pra
        ver a venda final: 2 anuais em 54). Sem este marco, decidir preço/duração é no escuro.
@@ -4068,7 +4100,10 @@ async function mountStripeElements(priceId){
     window._ckSi  = data.setupIntentId  || '';
     window._ckSub = data.subscriptionId || '';
     // InitiateCheckout (browser) — chegou no checkout. Mesmo event_id do CAPI (= setupIntentId) -> Facebook dedup.
-    try{ if(typeof window.fbq==='function'){ window.__fbFired=window.__fbFired||{}; if(!window.__fbFired.ic){ window.__fbFired.ic=true; const _pl=(answers&&answers._planCode)||'trial'; void 0; } } }catch(_){}
+    // FIX 14/09/2026: isto era um stub morto (`void 0`) — nunca chamava o fbq de verdade.
+    // Na pratica quase nunca roda (o clique em "comprar" ja disparou o IC antes de chegar
+    // aqui), mas fica como rede de seguranca caso este passo seja alcancado sem passar por la.
+    try{ if(typeof window.fbq==='function'){ window.__fbFired=window.__fbFired||{}; if(!window.__fbFired.ic){ window.__fbFired.ic=true; const _pl=(answers&&answers._planCode)||'trial'; window.fbq('track','InitiateCheckout',{value:(_pl==='year')?299:(TK.cents/100),currency:'BRL'},{eventID:window._ckEvtId||undefined}); } } }catch(_){}
     // NewsBreak: chegou no cartao
     try{ if(typeof window.nbpix==='function'){ window.__nbFired=window.__nbFired||{}; if(!window.__nbFired.ic){ window.__nbFired.ic=true; const _p2=(answers&&answers._planCode)||'trial'; window.nbpix('event','initiate_checkout',{nb_value:_p2==='year'?299:(TK.cents/100)}); } } }catch(_){}
     // (StartTrial NÃO dispara ao abrir o checkout — nada é criado aqui. Dispara só no cartão confirmado, em confirmStripe.)
